@@ -12,15 +12,18 @@ reusable services and utilities from the [Hexapla][hex] project.
 
 ## Installation 
 
-Add the following dependency to `composer.json`, then `composer update`: 
+Add the following Packagist dependency to `composer.json`, then run `composer
+update` as usual: 
 
     "require": {
-        "eukras/koinos": "~1.0",
+        "eukras/koinos": "~1.0"
     }
 
-If you wish, execute the test suite with: 
+If you wish, run the test suite with: 
 
     phpunit -c vendor/eukras/koinos/src/Koinos/Bundle/KoinosBundle/phpunit.xml 
+
+The tests are the best documentation. 
 
 ## Files
 
