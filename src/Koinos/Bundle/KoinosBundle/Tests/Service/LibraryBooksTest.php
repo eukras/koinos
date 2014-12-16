@@ -76,7 +76,7 @@ class LibraryBooksTest extends \PHPUnit_Framework_TestCase
     {
         $tests = [ 
             'songofsolomon+3.3-4' => "Canticum 3:3-4",  // <-- Alias with spaces
-            'matt+19.1,5,3,7' => 'Matthew 19:1;19:3,5,7',  //  <-- Sorting
+            'matt+19.1,5,3,7' => 'Matthew 19:1,3,5,7',  //  <-- Sorting
             'matt+18;19.1,3,5,7' => 'Matthew 18:1-19:1;19:3,5,7',  //  <-- Merging
             ];
         $this->forwardMapping($tests); 
