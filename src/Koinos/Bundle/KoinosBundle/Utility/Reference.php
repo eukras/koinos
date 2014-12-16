@@ -17,7 +17,7 @@ namespace Koinos\Bundle\KoinosBundle\Utility;
  * A DB-friendly list of verse ranges
  *
  * In the Koinos Bundle, References are usually constructed and formatted by
- * KoinosBundle\Service\Koinos. 
+ * KoinosBundle\Service\ReferenceManager. 
  *
  * ---------
  * Use Cases 
@@ -35,9 +35,10 @@ namespace Koinos\Bundle\KoinosBundle\Utility;
  * Implementation
  * --------------
  * 
- * If Matthew 19:1-6,10-14 was given to Service\Koinos, and it used book ID #1
- * for Matthew, then it should construct a Reference with the following ranges,
- * stored as index numbers. These allow efficient database querying.  
+ * If Matthew 19:1-6,10-14 was given to Service\ReferenceManager, and it used
+ * book ID #1 for Matthew, then it should construct a Reference with the
+ * following ranges, stored as index numbers. These allow efficient database
+ * querying.  
  *
  * [ [ 001001019001, 001001019006 ], 
  *   [ 001001019010, 001001019014 ] ]
@@ -72,15 +73,6 @@ namespace Koinos\Bundle\KoinosBundle\Utility;
  * or chapter)
  * - Range subtraction or intersection would be nice, but not urgent.  
  *
- * ------
- * PhpDoc
- * ------ 
- * 
- * @package Koinos
- * @version $id$
- * @copyright Copyright (c)2014, Nigel Chapman
- * @author Nigel Chapman <nigel@chapman.id.au> 
- * @license http://www.opensource.org/licenses/bsd-license.php The BSD License
  */
 
 class Reference
@@ -522,8 +514,6 @@ class Reference
      * references in the same book and chapter, or it contains any one
      * reference of a different kind. 
      *
-     * @used Koinos::formatReference()
-     * 
      * @access public
      * @return void
      */

@@ -13,11 +13,6 @@ namespace Koinos\Bundle\KoinosBundle;
 
 use Symfony\Component\HttpKernel\Bundle\Bundle;
 
-/**
- * Bundle.
- *
- * @author Nigel Chapman <nigel@chapman.id.au> 
- */
 class KoinosBundle extends Bundle
 {
 
