@@ -5,20 +5,20 @@ A PHP Composer Package (and Symphony Bundle) for working with:
 * biblical references in texts and databases, and 
 * classical and Koine Greek text. 
 
-Koinos means 'Common' in Ancient Greek. This packages contains a number of
+Koinos means 'Common' in Ancient Greek. This package contains a number of
 reusable services and utilities from the [Hexapla][hex] project. 
 
 [hex]: http://hexap.la 
 
 ## Installation 
 
-Add the following dependency to `composer.json`. 
+Add the following dependency to `composer.json`, then `composer update`: 
 
     "require": {
         "eukras/koinos": "~1.0",
     }
 
-Then just run `composer install`; if you wish, execute the test suite with: 
+If you wish, execute the test suite with: 
 
     phpunit -c vendor/eukras/koinos/src/Koinos/Bundle/KoinosBundle/phpunit.xml 
 
@@ -47,10 +47,11 @@ Initialise the ReferenceManager as follows:
     use Koinos\Bundle\KoinosBundle\Service\ReferenceManager;
     $rm = new ReferenceManager($libraries=['nt', 'lxx']); 
 
-Libraries are easy to create; Each requires `Resources/library/$name/books.csv`. 
-The CSV lines specify id, name, short-name, handle, reference-depth, aliases, 
-total-chapters. Most books are reference depth 2 (chapter:verse), but single-chapter
-books are identified by verse only, so have a reference depth of 1: 
+Libraries are easy to create: just add `Resources/library/$library/books.csv`.
+The CSV lines specify id, library-name, name, short-name, handle,
+reference-depth, aliases, total-chapters. Most books are reference depth 2
+(chapter:verse), but single-chapter books are identified by verse only, so have
+a reference depth of 1: 
 
     107,NT,1 Corinthians,1 Cor,1cor,2,1co,16
     118,NT,Philemon,Phm,phm,1,phl/philem,1
@@ -71,11 +72,12 @@ But you will normally want to work with references, which looks like this:
     $ref2 = $rm->createReferenceFromQuery('1cor+16.1-4,5,8,10-14'); 
 
 In this example `$ref1` generates identically to `$ref2`. Adjacent verse ranges
-are combined together into a canonical reference. Koinos does not know or care
-how many verses are in a given chapter. 
+are combined together into a standard reference. Koinos does not know or care
+how many verses are in a given chapter, though; internally, full-chapter links 
+are treated as Book 1:1-999. 
 
-    echo $rm->getTitle($ref1);  //  1 Corinthians 16:1-5,8,10-14 echo
-    $rm->getTitle($ref2);       //  1 Corinthians 16:1-5,8,10-14
+    echo $rm->getTitle($ref1);  //  1 Corinthians 16:1-5,8,10-14 
+    echo $rm->getTitle($ref2);  //  1 Corinthians 16:1-5,8,10-14
 
     $ref1->equals($ref2);       //  true
     $ref1->contains($ref2);     //  true
