@@ -92,8 +92,8 @@ Being able to generate links allows them to be auto-replaced in text:
     $linkedHtml = $rm->linkReferencesInHtml($textContainingReferences, '/r/'); 
 
 The scanner for matching links in text will identify if they exist in
-parallels, that is, if references that are separated by a pipe character, e.g.
-"The Psalms Ps 14 | Ps 53 are the same."
+parallels, that is, if references are separated by a pipe character, e.g.  "The
+Psalms Ps 14 | Ps 53 are the same." See the test suite for examples. 
 
 ### Utility\Reference Internals
 
@@ -108,9 +108,9 @@ section number is always 1:
     //    [ [107, 1, 16, 10], [107, 1, 16, 14] ] ]
 
 Every quadruple becomes an `UNSIGNED INT(12)` for SQL, making it easy to
-efficiently index and match references and ranges. In PHP these must be treated
-as a strings, or cast to a `double`, as it exceeds PHP's integer length.
-References will normally be worked with as quadruples, though. 
+efficiently index and match references and ranges. In PHP these numbers must be
+treated as a strings, or cast to a `double`: 12 digits exceed PHP's integer
+length. References will normally be worked with as quadruples, though. 
 
     echo $ref1->getSqlClause($columnName='reference'); 
 
@@ -135,8 +135,8 @@ This performs romanization, and offers some Unicode convenience wrappers.
     echo $g->lowercase('Α');       //  α
     echo $g->unicodeChr('1f0c');   //  Ἄ
 
-Here's how it would be used to scan the structure of Psalm 116 (LXX); in
-Hexapla this is used to save texts word-by-word to a database. 
+Here's how it would be used to scan the structure of Psalm 116 (LXX) -- in
+Hexapla this is used to save texts word-by-word into a database. 
 
     $ps116 = "1 αλληλουια.
 
@@ -147,8 +147,8 @@ Hexapla this is used to save texts word-by-word to a database.
 
         Τί εἰς τέλος;";
 
-For each word, let's grab its book/chapter/verse numbers, then
-paragraph/sentence/word numbers, and then any leading or trailing
+For each word, let's grab its book/chapter/verse numbers (BCV), then
+paragraph/sentence/word numbers (PSW), and then any leading or trailing
 punctuation. (Psalms are book 226.) 
 
     $structure = $g->getStructure($ps116, 226, 116);
