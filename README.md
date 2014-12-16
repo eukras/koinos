@@ -1,6 +1,6 @@
 # koinos
 
-A PHP Composer Package (and Symphony Bundle): 
+A PHP Composer Package (and Symphony Bundle) for working with:  
 
 * biblical references in texts and databases, and 
 * classical and Koine Greek text. 
