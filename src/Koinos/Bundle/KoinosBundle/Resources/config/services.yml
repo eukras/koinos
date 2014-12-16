@@ -1,6 +1,0 @@
-parameters:
-    koinos.class: Hexapla\KoinosBundle\Service\Koinos
-
-services:
-    koinos:
-        class: "%koinos.class%"
