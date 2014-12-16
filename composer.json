@@ -3,12 +3,14 @@
     "time": "2014-12-16",
     "homepage": "http://github.com/eukras/koinos",
     "description": "Work with Biblical references and Unicode Greek text",
-    "keywords": "bible, texts, greek, references",
+    "keywords": ["bible", "references", "greek", "text"],
     "license": "MIT",
     "authors": [
         {
             "name": "Nigel Chapman",
-            "email": "nigel@chapman.id.au"
+            "email": "nigel@chapman.id.au", 
+            "homepage": "http://chapman.id.au", 
+            "role": "Developer"
         }
     ],
     "support": {
