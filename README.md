@@ -1,11 +1,11 @@
 # koinos
 
-A PHP library for working with:  
+A PHP Composer Package (and Symphony Bundle): 
 
 * biblical references in texts and databases, and 
 * classical and Koine Greek text. 
 
-Koinos means 'Common' in Ancient Greek; this packages contains a number of
+Koinos means 'Common' in Ancient Greek. This packages contains a number of
 reusable services and utilities from the [Hexapla][hex] project. 
 
 [hex]: http://hexap.la 
@@ -55,7 +55,7 @@ books are identified by verse only, so have a reference depth of 1:
     107,NT,1 Corinthians,1 Cor,1cor,2,1co,16
     118,NT,Philemon,Phm,phm,1,phl/philem,1
 
-The ReferenceManager handles most dircet work with References. 
+The ReferenceManager handles most Reference operations. 
 
     $mattId = $rm->matchBookName('matt');  //  (int)101
     $matt28 = $rm->createReferenceFromBookAndChapter($mattId, 28); 
@@ -118,7 +118,7 @@ References will normally be worked with as quadruples, though.
 
 ## Utility\Greek
 
-This utility performs simple analysis and manipulation of Greek text: 
+The Greek utility performs simple manipulation and scanning of Greek text: 
 
     use Koinos\Bundle\KoinosBundle\Utility\Greek;
     $g = new Greek; 
@@ -133,16 +133,17 @@ This performs romanization, and offers some Unicode convenience wrappers.
     echo $g->lowercase('Α');       //  α
     echo $g->unicodeChr('1f0c');   //  Ἄ
 
-Here's how it would be used to analyse the structure of Psalm 116 (LXX). 
+Here's how it would be used to scan the structure of Psalm 116 (LXX); in
+Hexapla this is used to save texts word-by-word to a database. 
 
     $ps116 = "1 αλληλουια.
 
-   	 αἰνεῖτε τὸν κύριον πάντα τὰ ἔθνη. ἐπαινέσατε αὐτόν πάντες οἱ λαοί.
+        αἰνεῖτε τὸν κύριον πάντα τὰ ἔθνη. ἐπαινέσατε αὐτόν πάντες οἱ λαοί.
 
-          2 ὅτι ἐκραταιώθη τὸ ἔλεος αὐτοῦ [ἐφ’ ἡμᾶς] καὶ ἡ ἀλήθεια τοῦ κυρίου
-          μένει εἰς τὸν αἰῶνα.
+        2 ὅτι ἐκραταιώθη τὸ ἔλεος αὐτοῦ [ἐφ’ ἡμᾶς] καὶ ἡ ἀλήθεια τοῦ κυρίου
+        μένει εἰς τὸν αἰῶνα.
 
-          Τί εἰς τέλος;";
+        Τί εἰς τέλος;";
 
 For each word, let's grab its book/chapter/verse numbers, then
 paragraph/sentence/word numbers, and then any leading or trailing
