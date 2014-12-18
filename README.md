@@ -1,6 +1,6 @@
 # koinos
 
-A PHP Composer Package (and Symphony Bundle) for working with:  
+A PHP Composer Package (and Symfony Bundle) for working with:  
 
 * biblical references in texts and databases, and 
 * classical and Koine Greek text. 
@@ -102,13 +102,19 @@ Psalms Ps 14 | Ps 53 are the same." See the test suite for examples.
 
 Internal working is done with quadruples of `[book, section, chapter, verse]`;
 In `$ref1`, 1cor is book #107, and has two-level referencing (c:v), so the
-section number is always 1:
+section number is always 1.
 
-    echo json_encode($ref1->getRanges($asQuadruples=true)); 
+In Symfony you can troubleshoot references, and view the resulting ranges, with
+the command line tool:
 
-    //  [ [ [107, 1, 16,  1], [107, 1, 16,  5] ], 
-    //    [ [107, 1, 16,  8], [107, 1, 16,  8] ], 
-    //    [ [107, 1, 16, 10], [107, 1, 16, 14] ] ]
+    > php app/console koinos:query nt "1 Cor 3:4,5,7-12,8:24"
+
+    Title:       1 Corinthians 3:4-5,7-12;8:24
+    Short Title: 1 Cor 3:4-5,7-12;8:24
+    Handle:      1cor+3.4-5,7-12;8.24
+    0            [[107,1,3,4],[107,1,3,5]]
+    1            [[107,1,3,7],[107,1,3,12]]
+    2            [[107,1,8,24],[107,1,8,24]]
 
 Every quadruple becomes an `UNSIGNED INT(12)` for SQL, making it easy to
 efficiently index and match references and ranges. In PHP these numbers must be
