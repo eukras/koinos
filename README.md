@@ -25,17 +25,18 @@ If you wish, run the test suite with:
 
 The tests are the best documentation. 
 
-## Files
+## Main Files
 
-    ./composer.json
     ./src/Koinos/Bundle/KoinosBundle/Utility/Greek.php
     ./src/Koinos/Bundle/KoinosBundle/Utility/Reference.php
-    ./src/Koinos/Bundle/KoinosBundle/phpunit.xml
     ./src/Koinos/Bundle/KoinosBundle/Service/ReferenceManager.php
-    ./src/Koinos/Bundle/KoinosBundle/KoinosBundle.php
     ./src/Koinos/Bundle/KoinosBundle/Resources/library/lxx/books.csv
     ./src/Koinos/Bundle/KoinosBundle/Resources/library/nt/books.csv
+    ./src/Koinos/Bundle/KoinosBundle/KoinosBundle.php
     ./src/Koinos/Bundle/KoinosBundle/Resources/config/services.yml
+    ./src/Koinos/Bundle/KoinosBundle/Command/ListCommand.php
+    ./src/Koinos/Bundle/KoinosBundle/Command/QueryCommand.php
+    ./src/Koinos/Bundle/KoinosBundle/phpunit.xml
     ./src/Koinos/Bundle/KoinosBundle/Tests/... 
 
 
@@ -58,6 +59,10 @@ a reference depth of 1:
 
     107,NT,1 Corinthians,1 Cor,1cor,2,1co,16
     118,NT,Philemon,Phm,phm,1,phl/philem,1
+
+In Symfony, list the installed books (incl. their aliases) with: 
+
+    php app/console koinos:list
 
 The ReferenceManager handles most Reference operations. 
 
