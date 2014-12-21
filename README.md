@@ -5,7 +5,7 @@ A PHP Composer Package (and Symfony Bundle) for working with:
 * Biblical references in texts and databases, and 
 * Classical and Koine Greek text in Unicode. 
 
-Koinos means 'Common' in Ancient Greek. This package contains a number of
+Κοινός means 'common' in Ancient Greek. This package contains a number of
 reusable services and utilities from the [Hexapla][hex] project. 
 
 [hex]: http://hexap.la 
@@ -27,14 +27,17 @@ The tests are the best documentation.
 
 ## Main Files
 
-Regular PHP ~5.3: 
+Regular PHP >5.3: 
 
     ./src/Koinos/Bundle/KoinosBundle/Utility/Greek.php
     ./src/Koinos/Bundle/KoinosBundle/Utility/Reference.php
     ./src/Koinos/Bundle/KoinosBundle/Service/ReferenceManager.php
     ./src/Koinos/Bundle/KoinosBundle/Resources/library/lxx/books.csv
     ./src/Koinos/Bundle/KoinosBundle/Resources/library/nt/books.csv
-    ./src/Koinos/Bundle/KoinosBundle/Tests/... 
+    ./src/Koinos/Bundle/KoinosBundle/phpunit.xml
+    ./src/Koinos/Bundle/KoinosBundle/Tests/Utility/Greek.php 
+    ./src/Koinos/Bundle/KoinosBundle/Tests/Utility/Reference.php
+    ./src/Koinos/Bundle/KoinosBundle/Tests/Service/ReferenceManager.php
 
 Symfony integration: 
 
@@ -42,8 +45,6 @@ Symfony integration:
     ./src/Koinos/Bundle/KoinosBundle/Resources/config/services.yml
     ./src/Koinos/Bundle/KoinosBundle/Command/ListCommand.php
     ./src/Koinos/Bundle/KoinosBundle/Command/QueryCommand.php
-    ./src/Koinos/Bundle/KoinosBundle/phpunit.xml
-
 
 ## Service\ReferenceManager and Utility\Reference
 
