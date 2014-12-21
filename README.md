@@ -2,8 +2,8 @@
 
 A PHP Composer Package (and Symfony Bundle) for working with:  
 
-* biblical references in texts and databases, and 
-* classical and Koine Greek text. 
+* Biblical references in texts and databases, and 
+* Classical and Koine Greek text in Unicode. 
 
 Koinos means 'Common' in Ancient Greek. This package contains a number of
 reusable services and utilities from the [Hexapla][hex] project. 
@@ -12,8 +12,8 @@ reusable services and utilities from the [Hexapla][hex] project.
 
 ## Installation 
 
-Add the following Packagist dependency to `composer.json`, then run `composer
-update` as usual: 
+Add the following Packagist dependency to `composer.json`, then `composer
+install` or `update` as usual: 
 
     "require": {
         "eukras/koinos": "~1.0"
@@ -27,17 +27,22 @@ The tests are the best documentation.
 
 ## Main Files
 
+Regular PHP ~5.3: 
+
     ./src/Koinos/Bundle/KoinosBundle/Utility/Greek.php
     ./src/Koinos/Bundle/KoinosBundle/Utility/Reference.php
     ./src/Koinos/Bundle/KoinosBundle/Service/ReferenceManager.php
     ./src/Koinos/Bundle/KoinosBundle/Resources/library/lxx/books.csv
     ./src/Koinos/Bundle/KoinosBundle/Resources/library/nt/books.csv
+    ./src/Koinos/Bundle/KoinosBundle/Tests/... 
+
+Symfony integration: 
+
     ./src/Koinos/Bundle/KoinosBundle/KoinosBundle.php
     ./src/Koinos/Bundle/KoinosBundle/Resources/config/services.yml
     ./src/Koinos/Bundle/KoinosBundle/Command/ListCommand.php
     ./src/Koinos/Bundle/KoinosBundle/Command/QueryCommand.php
     ./src/Koinos/Bundle/KoinosBundle/phpunit.xml
-    ./src/Koinos/Bundle/KoinosBundle/Tests/... 
 
 
 ## Service\ReferenceManager and Utility\Reference
@@ -69,7 +74,7 @@ The ReferenceManager handles most Reference operations.
     $mattId = $rm->matchBookName('matt');  //  (int)101
     $matt28 = $rm->createReferenceFromBookAndChapter($mattId, 28); 
 
-    $acts1 = $rm->getNextChapterReference($matt28); 
+    $mark1 = $rm->getNextChapterReference($matt28); 
 
     echo $rm->getShortTitle($matt28);  //  Matt 28
     echo $rm->getHandle($matt28);      //  matt+28
