@@ -2,14 +2,12 @@
 
 namespace Koinos\Bundle\KoinosBundle\Command;
 
+use Koinos\Bundle\KoinosBundle\Service\ReferenceManager;
 use Symfony\Bundle\FrameworkBundle\Command\ContainerAwareCommand;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
-
-use Koinos\Bundle\KoinosBundle\Service\ReferenceManager; 
-use Koinos\Bundle\KoinosBundle\Utility\Reference; 
 
 class QueryCommand extends ContainerAwareCommand
 {
@@ -20,7 +18,7 @@ class QueryCommand extends ContainerAwareCommand
             ->setDescription('Lookup a reference; display in canonical form.')
             ->addArgument('library', InputArgument::REQUIRED, "Name of a library, e.g. 'nt', 'lxx'")
             ->addArgument('query',   InputArgument::REQUIRED, "Reference to a text."); 
-            ;
+        ;
     }
 
     protected function execute(inputinterface $input, outputinterface $output)
@@ -47,6 +45,4 @@ class QueryCommand extends ContainerAwareCommand
             $output->writeln("$i            " . json_encode($range)); 
         }
     }
-
 }
-

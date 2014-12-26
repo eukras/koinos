@@ -15,10 +15,8 @@ use Koinos\Bundle\KoinosBundle\Utility\Reference;
 
 class ReferenceTest extends \PHPUnit_Framework_TestCase
 {
-
     /*
      * Basic architecture and sanity checks
-     *
      */
 
     public function testIsValidQuadruple()
@@ -353,6 +351,4 @@ class ReferenceTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals(1, count($group1)); 
         $this->assertEquals(3, count($group2)); 
     }
-
 }
-

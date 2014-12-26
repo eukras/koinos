@@ -20,7 +20,7 @@ use Koinos\Bundle\KoinosBundle\Utility\Reference;
  *
  *  1)  Load corpus data from a library file. 
  *  2)  Return collections of books for that corpus. 
- *  3)  Use the corpus's dataset to: 
+ *  3)  Use the corpus's dataset to:
  *      a)  Create DB-friendly reference objects from human- and HTML-friendly
  *          formats. 
  *      b)  Format reference objects into human- and HTML-friendly formats. 
@@ -29,7 +29,6 @@ use Koinos\Bundle\KoinosBundle\Utility\Reference;
  * systems, though, use getHandle() for URL friendly identifiers. 
  *
  */
-
 class ReferenceManager
 { 
 
@@ -1699,4 +1698,3 @@ class ReferenceManager
     }
 
 }
-

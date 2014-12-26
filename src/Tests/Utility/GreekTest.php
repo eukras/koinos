@@ -15,7 +15,6 @@ use Koinos\Bundle\KoinosBundle\Utility\Greek;
 
 class GreekTest extends \PHPUnit_Framework_TestCase
 {
-
     public function __construct()
     { 
        $this->g = new Greek;  
@@ -329,6 +328,4 @@ class GreekTest extends \PHPUnit_Framework_TestCase
             ], $structure
         ); 
     }
-
 }
-

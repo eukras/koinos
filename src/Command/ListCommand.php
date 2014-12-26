@@ -8,8 +8,6 @@ use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
 
-use Koinos\Bundle\KoinosBundle\Service\ReferenceManager; 
-
 class ListCommand extends ContainerAwareCommand
 {
     protected function configure()
@@ -17,7 +15,7 @@ class ListCommand extends ContainerAwareCommand
         $this
             ->setName('koinos:list')
             ->setDescription('List libraries and books')
-            ;
+        ;
     }
 
     protected function execute(InputInterface $input, OutputInterface $output)
@@ -37,6 +35,4 @@ class ListCommand extends ContainerAwareCommand
             }
         }
     }
-
 }
-

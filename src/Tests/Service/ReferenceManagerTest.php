@@ -11,12 +11,10 @@
 
 namespace Koinos\Bundle\KoinosBundle\Tests\Service; 
 
-use Koinos\Bundle\KoinosBundle\Service\ReferenceManager; 
-use Koinos\Bundle\KoinosBundle\Utility\Reference; 
+use Koinos\Bundle\KoinosBundle\Service\ReferenceManager;
 
 class ReferenceManagerTest extends \PHPUnit_Framework_TestCase
 {
-
     public function setUp()
     {
         $this->referenceManager = new ReferenceManager(); // load no libraries
@@ -66,8 +64,7 @@ class ReferenceManagerTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals(2, $rm->getDepth(1)); 
         $this->assertEquals(1, $rm->getDepth(2)); 
         $this->assertEquals(21, $rm->getChapters(1)); 
-        $this->assertEquals(1, $rm->getChapters(2)); 
-
+        $this->assertEquals(1, $rm->getChapters(2));
     }
 
     public function testReferenceBuilders()
@@ -94,45 +91,45 @@ class ReferenceManagerTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals(
             'big+2', 
             $rm->getHandle($big2)
-            ); 
+        );
         $this->assertEquals(
             'Big Book 2', 
             $rm->getTitle($big2)
-            ); 
+        );
         $this->assertEquals(
             'Big 2', 
             $rm->getShortTitle($big2)
-            ); 
+        );
 
         $small = $rm->createReferenceFromBookAndChapter(2,1);
 
         $this->assertEquals(
             'small', 
             $rm->getHandle($small)
-            ); 
+        );
         $this->assertEquals(
             'Small Book', 
             $rm->getTitle($small)
-            ); 
+        );
         $this->assertEquals(
             'Small', 
             $rm->getShortTitle($small)
-            ); 
+        );
         
         $big25 = $rm->createReferenceFromBookChapterAndVerse(1,2,5);
 
         $this->assertEquals(
             'big+2.5', 
             $rm->getHandle($big25)
-            ); 
+        );
         $this->assertEquals(
             'Big Book 2:5', 
             $rm->getTitle($big25)
-            ); 
+        );
         $this->assertEquals(
             'Big 2:5', 
             $rm->getShortTitle($big25)
-            ); 
+        );
     }
 
     public function testFilterQuery()
@@ -146,9 +143,8 @@ class ReferenceManagerTest extends \PHPUnit_Framework_TestCase
             'Big _|/ @&2:5' => 'big+2.5', 
             '1 Big Book 7'  => '1big_book+7',  
             'Big7'          => 'big+7',  
-            'Big Book-Small Book'
-                            => 'big_book-small_book', 
-            ]; 
+            'Big Book-Small Book' => 'big_book-small_book',
+        ];
         foreach ($test as $before => $after) { 
             $this->assertEquals(
                 $after, 
@@ -476,6 +472,5 @@ class ReferenceManagerTest extends \PHPUnit_Framework_TestCase
 
         $this->assertEquals($correctLinks, $links); 
     }
-
 }
 

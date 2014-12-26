@@ -621,6 +621,4 @@ class Reference
         }
         return '(' . join(') OR (', $clauses) . ')';
     }
-
 }
-
