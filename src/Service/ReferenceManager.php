@@ -1603,6 +1603,7 @@ class ReferenceManager
             }
             $setOfParallels[] = $setOfRanges; 
         }
+
         return $setOfParallels; 
     }
 
@@ -1652,6 +1653,7 @@ class ReferenceManager
                 $new[] = $item; 
             }
         }
+
         return $new; 
     }
 
@@ -1662,7 +1664,7 @@ class ReferenceManager
      * which should correspond to the order in the text. Mainly used for
      * replacing matches that have been transformed in some way. The main idea
      * is to avoid performing a separate search for each of an enormous list of
-     * words or links, and quicking locating each succcessive match to the
+     * words or links, and quickly locating each successive match to the
      * right place in the document. 
      * 
      * @param array $swapArray 
