@@ -9,9 +9,9 @@
  * file that was distributed with this source code.
  */
 
-namespace Koinos\Bundle\KoinosBundle\Test\Utility; 
+namespace Koinos\Tests\Utility; 
 
-use Koinos\Bundle\KoinosBundle\Utility\Greek; 
+use Koinos\Utility\Greek; 
 
 class GreekTest extends \PHPUnit_Framework_TestCase
 {

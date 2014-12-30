@@ -9,9 +9,9 @@
  * file that was distributed with this source code.
  */
 
-namespace Koinos\Bundle\KoinosBundle\Tests\Service; 
+namespace Koinos\Tests\Service; 
 
-use Koinos\Bundle\KoinosBundle\Service\ReferenceManager;
+use Koinos\Service\ReferenceManager;
 
 /*
  * @see ReferenceManagerTest for generic functional tests. This tests larger,
