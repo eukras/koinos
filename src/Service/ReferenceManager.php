@@ -536,15 +536,15 @@ class ReferenceManager
             if ($c == $maxChapter) {
                 if ($b == $maxBook) {
                     return $this->createReferenceFromBookAndChapter($minBook, 1);  
-                } else {
-                    return $this->createReferenceFromBookAndChapter($b + 1, 1);  
                 }
-            } else { 
-                return $this->createReferenceFromBookAndChapter($b, $c + 1);  
+
+                return $this->createReferenceFromBookAndChapter($b + 1, 1);
             }
-        } else { 
-            return null; 
+
+            return $this->createReferenceFromBookAndChapter($b, $c + 1);
         }
+
+        return null;
     }
 
     /*
@@ -610,30 +610,33 @@ class ReferenceManager
         foreach ($filters as $f) { 
             $query = $f($query); 
         }
+
         return $query; 
     }
 
     /**
-     * Match a book ID to a book name. 
+     * Match a book ID to a book name.
      *
      * @see self::queryToQuadrupleRanges()
      *
-     * @throws User-friendly Exception 
+     * @throws User-friendly Exception
      *
-     * @idea Include a spelling suggestion in the message? 
-     * 
-     * @param mixed $bookName 
+     * @idea Include a spelling suggestion in the message?
+     *
+     * @param mixed $bookName
      * @return string
      */
     public function matchBookName($bookName) 
     {
         if (isset($this->id[$bookName])) { 
             return $this->id[$bookName]; 
-        } elseif (isset($this->alias[$bookName])) { 
-            return $this->alias[$bookName]; 
-        } else { 
-            throw new \Exception("Book not recognized: $bookName"); 
         }
+
+        if (isset($this->alias[$bookName])) {
+            return $this->alias[$bookName]; 
+        }
+
+        throw new \Exception("Book not recognized: $bookName");
     }
 
     /**
@@ -802,18 +805,12 @@ class ReferenceManager
                             [$b, 1, $c,   1], 
                             [$b, 1, $c, 999], 
                             ]; 
-                        $lastReferenceIncludedVerses = false; 
-
-                    } else { 
-
-                        throw new \Exception("Bad reference depth $depth for $name"); 
-
+                        $lastReferenceIncludedVerses = false;
+                    } else {
+                        throw new \Exception("Bad reference depth $depth for $name");
                     }
-
                 }
-
-            } else { 
-
+            } else {
                 throw new \Exception("Malformed verse numbers: $part"); 
             }
         }
@@ -825,28 +822,29 @@ class ReferenceManager
      * A range number string contains only numbers and punctuation.
      *
      * @param strign $str
-     * @return void
+     * @return bool
      */
     public function isValidRangeNumberString($str)
     {
         $rangeStr = preg_replace('/[^0-9\-.,]/', '', $str);
+
         return $str == $rangeStr;
     }
 
     /**
-     * Exceptino wrapper for isValidRangeNumberString 
-     * 
-     * @param string $str 
-     * @throw Exception 
-     * @return void
+     * Exception wrapper for isValidRangeNumberString
+     *
+     * @param string $str
+     * @throws \Exception
+     * @return mixed
      */
     public function requireValidRangeNumberString($str)
     {
         if ($this->isValidRangeNumberString($str)) { 
-            //  Do nothing. 
-        } else { 
-            throw new \Exception("Malformed range numbers: $str"); 
+            return;
         }
+
+        throw new \Exception("Malformed range numbers: $str");
     }
 
     /**
@@ -897,7 +895,7 @@ class ReferenceManager
             $numQueryParts = count($queryParts); 
             if ($numQueryParts == 1) { 
 
-                if ($this->isValidRangeNumberString($query)) { 
+                if ($this->isValidRangeNumberString($query)) {
 
                     //  RangeNumbers ($lastBook cannot be null)
 
@@ -909,9 +907,9 @@ class ReferenceManager
                     } else { 
                         if ($throwExceptions) { 
                             throw new \Exception("Missing book for '$query'"); 
-                        } else { 
-                            return null; 
                         }
+
+                        return null;
                     }
                 } else { 
 
@@ -939,9 +937,9 @@ class ReferenceManager
                     } else { 
                         if ($throwExceptions) { 
                             throw new \Exception("Could not understand: '$query'"); 
-                        } else { 
-                            return null; 
                         }
+
+                        return null;
                     }
                 }
 
@@ -960,39 +958,39 @@ class ReferenceManager
             } else { 
                 if ($throwExceptions) { 
                     throw new \Exception("Could not understand: '$query'"); 
-                } else { 
-                    return null; 
                 }
-            }
 
+                return null;
+            }
         }
 
         if ($lastBook == null) { 
             if ($throwExceptions) { 
                 throw new \Exception("No book given in reference: '$unfilteredQuery'"); 
-            } else { 
-                return null; 
             }
+
+            return null;
         }
 
         return $quadrupleRanges; 
     }
 
     /**
-     * Construct a reference from a URL or search query. 
+     * Construct a reference from a URL or search query.
      *
      * Only to be used for very short or incidental references like the
-     * single-verse example in the home page. 
-     * 
-     * @param mixed $query 
-     * @param mixed $previousReference 
-     * @return void
+     * single-verse example in the home page.
+     *
+     * @param mixed $query
+     * @param bool $throwExceptions
+     * @return Reference
+     * @throws \Exception
      */
-    public function createReferenceFromQuery($query, $throwExceptions=false)
+    public function createReferenceFromQuery($query, $throwExceptions = false)
     {
-        $qr = $this->queryToQuadrupleRanges($query, $throwExceptions); 
-        $r = $this->createReferenceFromQuadrupleRanges($qr);  
-        return $r; 
+        $qr = $this->queryToQuadrupleRanges($query, $throwExceptions);
+
+        return $this->createReferenceFromQuadrupleRanges($qr);
     }
 
     /* 
@@ -1003,9 +1001,11 @@ class ReferenceManager
     /**
      * Return a URL-friendly reference string
      *
-     * (That's what a "handle" is.) 
-     * 
+     * (That's what a "handle" is.)
+     *
+     * @param Reference $reference
      * @return string URL-friendly reference
+     * @throws \Exception
      */
     public function getHandle(Reference $reference) 
     {
@@ -1020,9 +1020,11 @@ class ReferenceManager
     /**
      * Return a human-friendly reference string
      *
-     * (That's what a "title" is.) 
-     * 
+     * (That's what a "title" is.)
+     *
+     * @param Reference $reference
      * @return string Human-friendly reference string
+     * @throws \Exception
      */
     public function getTitle(Reference $reference) 
     {
@@ -1035,9 +1037,11 @@ class ReferenceManager
     }
 
     /**
-     * Return a human-friendly reference string, but without the book name. 
+     * Return a human-friendly reference string, but without the book name.
      *
+     * @param Reference $reference
      * @return string Human-friendly reference string
+     * @throws \Exception
      */
     public function getShortTitle(Reference $reference)
     {
@@ -1046,7 +1050,7 @@ class ReferenceManager
             $format     = ReferenceManager::SHORT_TITLE, 
             $space      = ' ',
             $delimiter  = ':'
-        ); 
+        );
     }
 
     /**
@@ -1061,7 +1065,8 @@ class ReferenceManager
             . $this->getHandle($reference)
             . "\">"
             . $this->getTitle($reference)
-            . "</a>";
+            . "</a>"
+        ;
     }
 
     /**
@@ -1076,7 +1081,8 @@ class ReferenceManager
             . $this->getHandle($reference)
             . "\">"
             . $this->getShortTitle($reference)
-            . "</a>";
+            . "</a>"
+        ;
     }
 
     /**
