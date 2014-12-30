@@ -29,8 +29,8 @@ In `composer.json`:
 The tests are the best documentation for developers. 
 
 ```bash
-composer dump  # updates /vendor for autoloading; see .gitignore
-phpunit -c tests/phpunit.xml 
+composer dump-autoload   # updates /vendor for autoloading; see .gitignore
+phpunit -c tests
 ```
 
 ## Library data files 
