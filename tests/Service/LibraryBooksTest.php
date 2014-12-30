@@ -9,10 +9,9 @@
  * file that was distributed with this source code.
  */
 
-namespace Koinos\Bundle\KoinosBundle\Tests\Service; 
+namespace Koinos\Tests\Service; 
 
-use Koinos\Bundle\KoinosBundle\Service\ReferenceManager; 
-use Koinos\Bundle\KoinosBundle\Utility\Reference; 
+use Koinos\Service\ReferenceManager;
 
 /*
  * @see ReferenceManagerTest for generic functional tests. This tests larger,
@@ -21,6 +20,7 @@ use Koinos\Bundle\KoinosBundle\Utility\Reference;
  */
 class LibraryBooksTest extends \PHPUnit_Framework_TestCase
 {
+    private $referenceManager;
 
     public function setUp()
     {
@@ -63,7 +63,7 @@ class LibraryBooksTest extends \PHPUnit_Framework_TestCase
             '2jn-3jn' => "2 John-3 John",
             "matt+5.39-42,44,46-47,49" => "Matthew 5:39-42,44,46-47,49",
             "matt+5.39-42,44;8" => "Matthew 5:39-42,44;8", 
-            ];
+        ];
         $this->forwardMapping($tests); 
         $this->reverseMapping($tests); 
 	}
@@ -78,9 +78,7 @@ class LibraryBooksTest extends \PHPUnit_Framework_TestCase
             'songofsolomon+3.3-4' => "Canticum 3:3-4",  // <-- Alias with spaces
             'matt+19.1,5,3,7' => 'Matthew 19:1,3,5,7',  //  <-- Sorting
             'matt+18;19.1,3,5,7' => 'Matthew 18:1-19:1;19:3,5,7',  //  <-- Merging
-            ];
+        ];
         $this->forwardMapping($tests); 
     }
-
 }
-

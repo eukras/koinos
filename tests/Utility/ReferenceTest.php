@@ -9,16 +9,14 @@
  * file that was distributed with this source code.
  */
 
-namespace Koinos\Bundle\KoinosBundle\Test\Utility; 
+namespace Koinos\Tests\Utility; 
 
-use Koinos\Bundle\KoinosBundle\Utility\Reference; 
+use Koinos\Utility\Reference; 
 
 class ReferenceTest extends \PHPUnit_Framework_TestCase
 {
-
     /*
      * Basic architecture and sanity checks
-     *
      */
 
     public function testIsValidQuadruple()
@@ -353,6 +351,4 @@ class ReferenceTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals(1, count($group1)); 
         $this->assertEquals(3, count($group2)); 
     }
-
 }
-

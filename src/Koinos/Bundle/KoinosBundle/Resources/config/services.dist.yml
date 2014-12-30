@@ -1,8 +1,0 @@
-parameters:
-    koinos.class:       Koinos\Bundle\KoinosBundle\Service\ReferenceManager
-    koinos.libraries:   [ "nt", "lxx" ]
-
-services:
-    koinos:
-        class:          "%koinos.class%"
-        arguments:      [ %koinos.libraries% ] 

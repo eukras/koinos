@@ -9,9 +9,9 @@
  * file that was distributed with this source code.
  */
 
-namespace Koinos\Bundle\KoinosBundle\Service; 
+namespace Koinos\Service; 
 
-use Koinos\Bundle\KoinosBundle\Utility\Reference; 
+use Koinos\Utility\Reference; 
 
 /**
  * Manage reference objects for a corpus of texts. 
@@ -20,7 +20,7 @@ use Koinos\Bundle\KoinosBundle\Utility\Reference;
  *
  *  1)  Load corpus data from a library file. 
  *  2)  Return collections of books for that corpus. 
- *  3)  Use the corpus's dataset to: 
+ *  3)  Use the corpus's dataset to:
  *      a)  Create DB-friendly reference objects from human- and HTML-friendly
  *          formats. 
  *      b)  Format reference objects into human- and HTML-friendly formats. 
@@ -29,7 +29,6 @@ use Koinos\Bundle\KoinosBundle\Utility\Reference;
  * systems, though, use getHandle() for URL friendly identifiers. 
  *
  */
-
 class ReferenceManager
 { 
 
@@ -1604,6 +1603,7 @@ class ReferenceManager
             }
             $setOfParallels[] = $setOfRanges; 
         }
+
         return $setOfParallels; 
     }
 
@@ -1653,6 +1653,7 @@ class ReferenceManager
                 $new[] = $item; 
             }
         }
+
         return $new; 
     }
 
@@ -1663,7 +1664,7 @@ class ReferenceManager
      * which should correspond to the order in the text. Mainly used for
      * replacing matches that have been transformed in some way. The main idea
      * is to avoid performing a separate search for each of an enormous list of
-     * words or links, and quicking locating each succcessive match to the
+     * words or links, and quickly locating each successive match to the
      * right place in the document. 
      * 
      * @param array $swapArray 
@@ -1699,4 +1700,3 @@ class ReferenceManager
     }
 
 }
-
