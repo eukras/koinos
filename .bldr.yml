@@ -1,0 +1,76 @@
+bldr:
+    name: eukras/koinos
+    description: Koinos library
+    profiles:
+        travis:
+            description: Travis Profile
+            jobs:
+                - prepare
+                - lint
+                - test
+        local:
+            description: Local Development Profile
+            jobs:
+                - testLocal
+                - watch
+    jobs:
+        prepare:
+            tasks:
+                -
+                    continueOnError: true
+                    type: filesystem:remove
+                    files: [build/coverage, build/logs]
+                -
+                    type: filesystem:mkdir
+                    continueOnError: false
+                    files: [build/coverage, build/logs]
+                -
+                    type: filesystem:touch
+                    continueOnError: true
+                    files: [build/coverage/index.html]
+                -
+                    type: exec
+                    continueOnError: false
+                    executable: composer
+                    arguments: [-q, install, --prefer-dist]
+                -
+                    type: notify
+                    message: Prepare Task Finished
+        lint:
+            description: Lints the files of the project
+            tasks:
+                -
+                    type: apply
+                    continueOnError: false
+                    src:
+                        - { path: [src, tests], files: "*.php", recursive: true }
+                    output: /dev/null
+                    executable: php
+                    arguments: [-l]
+        test:
+            description: Runs the PHPUnit Tests
+            tasks:
+                -
+                    type: exec
+                    continueOnError: false
+                    executable: phpunit
+                    arguments:
+                        - --coverage-html=build/coverage
+                        - --coverage-text=php://stdout
+        testLocal:
+            description: Runs the PHPUnit Tests
+            tasks:
+                -
+                    type: exec
+                    continueOnError: true
+                    executable: phpunit
+                    arguments:
+                        #- --group=now
+        watch:
+            description: Watch Task for Local Development
+            tasks:
+                -
+                    type: watch
+                    src:
+                        - { path: [src, tests], files: "*.php", recursive: true }
+                    task: testLocal
