@@ -26,12 +26,10 @@ use Koinos\Utility\Reference;
  *      b)  Format reference objects into human- and HTML-friendly formats. 
  *
  * Note: The ReferenceManager CAN generate HTML links; for use with routing
- * systems, though, use getHandle() for URL friendly identifiers. 
- *
+ * systems, though, use getHandle() for URL friendly identifiers.
  */
 class ReferenceManager
-{ 
-
+{
     /*
      * Constants for specifying format types. 
      * -----------------------------------------------------
@@ -243,7 +241,7 @@ class ReferenceManager
         $safeName = trim($name);
         if (isset($this->id[$safeName])) {
             return (int)$this->id[$safeName];
-        } else if (($index = array_search($safeName, $this->nameLowercase)) !== false ) { 
+        } elseif (($index = array_search($safeName, $this->nameLowercase)) !== false ) {
             return $index;
         } else {
             if (isset($this->aliasing[$safeName])) {
@@ -263,9 +261,9 @@ class ReferenceManager
         $safeName = trim($name);
         if (isset($this->alias[$safeName])) {
             return $this->alias[$safeName];
-        } else {
-            throw new \Exception("Book abbreviation not found for #$safeId.");
         }
+
+        throw new \Exception("Book abbreviation not found for #$safeId.");
     }
 
     public function getLibrary($id)
@@ -273,9 +271,9 @@ class ReferenceManager
         $safeId = (int)$id;
         if (isset($this->library[$safeId])) {
             return $this->library[$safeId];
-        } else {
-            throw new \Exception("Book abbreviation not found for #$safeId.");
         }
+
+        throw new \Exception("Book abbreviation not found for #$safeId.");
     }
 
     public function getLibraryBooks($name=null)
@@ -284,12 +282,12 @@ class ReferenceManager
             $safeName = trim($name);
             if (isset($this->libraries[$safeName])) {
                 return $this->libraries[$safeName];
-            } else {
-                throw new \Exception("Book abbreviation not found for #$safeId.");
             }
-        } else { 
-            return $this->libraries; 
+
+            throw new \Exception("Book abbreviation not found for #$safeName.");
         }
+
+        return $this->libraries;
     }
 
     public function getName($id)
@@ -297,9 +295,9 @@ class ReferenceManager
         $safeId = (int)$id;
         if (isset($this->name[$safeId])) {
             return $this->name[$safeId];
-        } else {
-            throw new \Exception("Book name not found for #$safeId.");
         }
+
+        throw new \Exception("Book name not found for #$safeId.");
     }
 
     public function getShortName($id)
@@ -307,9 +305,9 @@ class ReferenceManager
         $safeId = (int)$id;
         if (isset($this->shortName[$safeId])) {
             return $this->shortName[$safeId];
-        } else {
-            throw new \Exception("Book name not found for #$safeId.");
         }
+
+        throw new \Exception("Book name not found for #$safeId.");
     }
 
     public function getAbbreviation($id)
@@ -317,9 +315,9 @@ class ReferenceManager
         $safeId = (int)$id;
         if (isset($this->abbreviation[$safeId])) {
             return $this->abbreviation[$safeId];
-        } else {
-            throw new \Exception("Book abbreviation not found for #$safeId.");
         }
+
+        throw new \Exception("Book abbreviation not found for #$safeId.");
     }
 
     public function getAliases($id)
@@ -327,9 +325,9 @@ class ReferenceManager
         $safeId = (int)$id;
         if (isset($this->aliases[$safeId])) {
             return $this->aliases[$safeId];
-        } else {
-            throw new \Exception("Book aliases not found for #$safeId.");
         }
+
+        throw new \Exception("Book aliases not found for #$safeId.");
     }
 
     public function getDepth($id)
@@ -337,9 +335,9 @@ class ReferenceManager
         $safeId = (int)$id;
         if (isset($this->depth[$safeId])) {
             return (int)$this->depth[$safeId];
-        } else {
-            throw new \Exception("Book depth not found for #$safeId.");
         }
+
+        throw new \Exception("Book depth not found for #$safeId.");
     }
 
     public function getChapters($id)
@@ -347,18 +345,18 @@ class ReferenceManager
         $safeId = (int)$id;
         if (isset($this->chapters[$safeId])) {
             return $this->chapters[$safeId];
-        } else {
-            throw new \Exception("Book chapters not found for #$safeId.");
         }
+
+        throw new \Exception("Book chapters not found for #$safeId.");
     }
 
     /**
-     * Throw an exception if an exception is overwritten. 
-     * 
-     * @param string $alias 
-     * @param integer $id 
-     * @param boolean $id 
-     * @return void
+     * Throw an exception if an exception is overwritten.
+     *
+     * @param string $alias
+     * @param int $id
+     * @param bool $strict
+     * @throws \Exception
      */
     public function addAlias($alias, $id, $strict=true)
     { 
@@ -367,8 +365,6 @@ class ReferenceManager
             if ($strict == true) { 
                 $oldId = $this->alias[$aliasName]; 
                 throw new \Exception("Alias '$aliasName' is already set for #$oldId");
-            } else { 
-                //  Do nothing. 
             }
         } else { 
             $this->alias[$aliasName] = $id;
