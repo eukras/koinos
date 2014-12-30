@@ -20,7 +20,7 @@ use Koinos\Utility\Reference;
  *
  *  1)  Load corpus data from a library file. 
  *  2)  Return collections of books for that corpus. 
- *  3)  Use the corpus's dataset to:
+ *  3)  Use the corpus's data set to:
  *      a)  Create DB-friendly reference objects from human- and HTML-friendly
  *          formats. 
  *      b)  Format reference objects into human- and HTML-friendly formats. 
@@ -127,7 +127,7 @@ class ReferenceManager
                 $path = __DIR__ . "/../Resources/library/$name"; 
                 if (is_dir($path)) { 
                     $this->loadCsvFile("$path/books.csv"); 
-                } else { 
+                } else {
                     throw new \Exception("Library directory not found for '$name'.");
                 }
             }
@@ -173,7 +173,6 @@ class ReferenceManager
             $this->loadData($data); 
             fclose($fp); 
         }
-
     }
 
     /**
@@ -226,8 +225,7 @@ class ReferenceManager
             $this->shortName[$id]       = $bookShortName; 
             $this->depth[$id]           = (int)$bookDepth; 
             $this->chapters[$id]        = (int)$bookChapters; 
-            $this->abbreviation[$id]    = $bookAbbreviation; 
-
+            $this->abbreviation[$id]    = $bookAbbreviation;
         }
     }
 
@@ -236,24 +234,26 @@ class ReferenceManager
      * -----------------------------------------------------
      */
 
-    public function getId($name, $noExceptions=false)
+    public function getId($name, $noExceptions = false)
     {
         $safeName = trim($name);
         if (isset($this->id[$safeName])) {
             return (int)$this->id[$safeName];
-        } elseif (($index = array_search($safeName, $this->nameLowercase)) !== false ) {
-            return $index;
-        } else {
-            if (isset($this->aliasing[$safeName])) {
-                return (int)$this->aliasing[$safeName];
-            } else {
-                if ($noExceptions) {
-                    return false;
-                } else {
-                    throw new \Exception("Book ID not found for '$safeName'.");
-                }
-            }
         }
+
+        if (($index = array_search($safeName, $this->nameLowercase)) !== false ) {
+            return $index;
+        }
+
+        if (isset($this->aliasing[$safeName])) {
+            return (int) $this->aliasing[$safeName];
+        }
+
+        if ($noExceptions) {
+            return false;
+        }
+
+        throw new \Exception("Book ID not found for '$safeName'.");
     }
 
     public function getAlias($name)
@@ -404,10 +404,11 @@ class ReferenceManager
                     'handle' => $this->getHandle($r), 
                     'title' => $this->getShortName($bookId), 
                     'weight' => min(ceil($this->getChapters($bookId) / $divider), $steps), 
-                    ]; 
+                ];
             }
             $tagCloud[$libraryName] = $libraryTagCloud; 
         }
+
         return $tagCloud; 
     }
 
@@ -419,7 +420,8 @@ class ReferenceManager
     public function createReferenceFromRanges($ranges)
     {
         $reference = new Reference;
-        $reference->addRanges($ranges); 
+        $reference->addRanges($ranges);
+
         return $reference;
     }
 
@@ -436,6 +438,7 @@ class ReferenceManager
                 $r->quadrupleToIndex($end),  
             ]; 
         }
+
         return $this->createReferenceFromRanges($ranges); 
     }
 
@@ -449,7 +452,8 @@ class ReferenceManager
     public function createReferenceFromBookAndChapter($b, $c)
     {
         $reference = new Reference;
-        $reference->addBookAndChapter($b, $c); 
+        $reference->addBookAndChapter($b, $c);
+
         return $reference;
     }
 
@@ -464,7 +468,8 @@ class ReferenceManager
     public function createReferenceFromBookChapterAndVerse($b, $c, $v)
     {
         $reference = new Reference;
-        $reference->addBookChapterAndVerse($b, $c, $v); 
+        $reference->addBookChapterAndVerse($b, $c, $v);
+
         return $reference;
     }
 
@@ -477,11 +482,12 @@ class ReferenceManager
     public function getChapterReference(Reference $reference)
     {
         if ($quadruple = $reference->getFirstQuadruple()) { 
-            list($b, $s, $c, $v) = $quadruple; 
+            list($b, $s, $c, $v) = $quadruple;
+
             return $this->createReferenceFromBookAndChapter($b, $c);  
-        } else { 
-            return null; 
         }
+
+        return null;
     }
 
     /**
@@ -504,16 +510,17 @@ class ReferenceManager
                     $maxBook = max($books);
                     $maxChapter = $this->getChapters($maxBook);
                     return $this->createReferenceFromBookAndChapter($maxBook, $maxChapter);  
-                } else {
-                    $maxChapter = $this->getChapters($b - 1);
-                    return $this->createReferenceFromBookAndChapter($b - 1, $maxChapter);  
                 }
-            } else { 
-                return $this->createReferenceFromBookAndChapter($b, $c - 1);  
+
+                $maxChapter = $this->getChapters($b - 1);
+
+                return $this->createReferenceFromBookAndChapter($b - 1, $maxChapter);
             }
-        } else { 
-            return null; 
+
+            return $this->createReferenceFromBookAndChapter($b, $c - 1);
         }
+
+        return null;
     }
 
     /**
