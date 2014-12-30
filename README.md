@@ -60,8 +60,8 @@ The ReferenceManager is use to construct, manipulate and format References.
 ```bash
 ./src/Utility/Reference.php
 ./src/Service/ReferenceManager.php
-./src/Tests/Utility/Reference.php
-./src/Tests/Service/ReferenceManager.php
+./tests/Utility/Reference.php
+./tests/Service/ReferenceManager.php
 ```
 
 ### Examples
@@ -92,8 +92,7 @@ echo $rm->getShortTitle($matt28);  //  Matt 28
 echo $rm->getHandle($matt28);      //  matt+28
 ```
 
-But you will normally want to work with complex human-readable reference
-strings: 
+You will normally want to work with complex human-readable reference strings: 
 
 ```php
 $ref1 = $rm->createReferenceFromQuery('1 Cor 16:1-5,8,10-12,13-14');
@@ -166,8 +165,8 @@ usually manipulated as quadruples though, which are regular integers 1-999.
 The Greek utility performs simple manipulation and scanning of Greek text: 
 
 ```bash
-./src/Tests/Utility/Greek.php 
 ./src/Utility/Greek.php
+./tests/Utility/Greek.php 
 ```
 
 Initialise without arguments: 
