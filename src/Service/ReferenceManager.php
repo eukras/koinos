@@ -1080,25 +1080,30 @@ class ReferenceManager
     }
 
     /**
-     * Find the right book name for a given labelType. 
+     * Find the right book name for a given labelType.
      *
      * @see formatReference
-     * 
-     * @param int $bookId 
-     * @param int $labelType 
-     * @return void
+     *
+     * @param int $bookId
+     * @param int $labelType
+     * @return mixed
+     * @throws \Exception
      */
     public function formatBookName($bookId, $labelType)
     {
         if ($labelType == self::HANDLE) { 
             return $this->getAbbreviation($bookId); 
-        } else if ($labelType == self::TITLE) { 
-            return $this->getName($bookId); 
-        } else if ($labelType == self::SHORT_TITLE) { 
-            return $this->getShortName($bookId); 
-        } else { 
-            throw new \Exception("Invalid label type: $labelType"); 
         }
+
+        if ($labelType == self::TITLE) {
+            return $this->getName($bookId); 
+        }
+
+        if ($labelType == self::SHORT_TITLE) {
+            return $this->getShortName($bookId); 
+        }
+
+        throw new \Exception("Invalid label type: $labelType");
     }
 
     /**
@@ -1114,17 +1119,21 @@ class ReferenceManager
      * @return string
      */
     public function formatVerseNumber($b, $s, $c, $v, $delimiter)
-    { 
-        $depth = $this->getDepth($b); 
-        if ($depth == 1) { 
-            return "$v"; 
-        } else if ($depth == 2) { 
-            return "$c$delimiter$v"; 
-        //  } else if ($depth == 3) {  //  Add this when sections are supported. 
-            //  return "$s$delimiter$c$delimiter$v"; 
-        } else { 
-            throw new \Exception("Invalid referencing depth: $depth"); 
+    {
+        $depth = $this->getDepth($b);
+        if ($depth == 1) {
+            return "$v";
         }
+
+        if ($depth == 2) {
+            return "$c$delimiter$v";
+        }
+
+        //  if ($depth == 3) {  //  Add this when sections are supported.
+        //      return "$s$delimiter$c$delimiter$v";
+        //  }
+
+        throw new \Exception("Invalid referencing depth: $depth");
     }
 
     /**
@@ -1194,32 +1203,40 @@ class ReferenceManager
         if ($depth == 1) { 
             if ($v1 == $v2) { 
                 return "$v1";
-            } elseif ($v1 == 1 && $v2 == 999) { 
+            }
+
+            if ($v1 == 1 && $v2 == 999) {
                 return "";  //  <-- Whole chapter 
-            } else { 
-                return "$v1-$v2";
             }
         } else { 
             if ($c1 == $c2) { 
                 if ($v1 == $v2) { 
                     return "$c1$delimiter$v1";
-                } elseif ($v1 == 1 && $v2 == 999) { 
+                }
+
+                if ($v1 == 1 && $v2 == 999) {
                     return "$c1";  //  <-- Whole chapter 
-                } else { 
-                    return "$c1$delimiter$v1-$v2";
                 }
-            } else { 
-                if ($v1 == 1 && $v2 == 999) { 
-                    if ($c1 == 1 && $c2 == 999) { 
-                        return "";  //  <-- Whole book 
-                    } else { 
-                        return "$c1-$c2";
-                    }
-                } else { 
-                    return "$c1$delimiter$v1-$c2$delimiter$v2";
-                }
+
+                return "$c1$delimiter$v1-$v2";
             }
+
+            if ($v1 == 1 && $v2 == 999) {
+                if ($c1 == 1 && $c2 == 999) {
+                    return "";  //  <-- Whole book
+                }
+
+                return "$c1-$c2";
+            }
+
+            return "$c1$delimiter$v1-$c2$delimiter$v2";
         }
+
+        if ($v1 == 1 and $v2 == 999) {
+            return "$c1-$c2";
+        }
+
+        return "$c1$delimiter$v1-$c2$delimiter$v2";
     }
 
     /**
@@ -1416,9 +1433,9 @@ class ReferenceManager
                 $handles[] = $this->getHandle($r); 
             }
             return array_chunk($handles, $width); 
-        } else { 
-            return []; 
         }
+
+        return [];
     }
 
     /*
