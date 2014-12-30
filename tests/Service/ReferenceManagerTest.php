@@ -15,25 +15,25 @@ use Koinos\Service\ReferenceManager;
 
 class ReferenceManagerTest extends \PHPUnit_Framework_TestCase
 {
+    private $referenceManager;
+
     public function setUp()
     {
         $this->referenceManager = new ReferenceManager(); // load no libraries
         $this->referenceManager->loadData([
-
-        /*   ID
-         *   :  Library Name
-         *   :  :     Name
-         *   :  :     :            Short Name
-         *   :  :     :            :       Abbreviation
-         *   :  :     :            :       :      Reference Depth
-         *   :  :     :            :       :      :  Aliases
-         *   :  :     :            :       :      :  :          Chapters
-         *   :  :     :            :       :      :  :          :
-         *   :  :     :            :       :      :  :          :
-         */
+            /*   ID
+             *   :  Library Name
+             *   :  :     Name
+             *   :  :     :            Short Name
+             *   :  :     :            :       Abbreviation
+             *   :  :     :            :       :      Reference Depth
+             *   :  :     :            :       :      :  Aliases
+             *   :  :     :            :       :      :  :          Chapters
+             *   :  :     :            :       :      :  :          :
+             *   :  :     :            :       :      :  :          :
+             */
             [1,'LIB','Big Book',  'Big',  'big',  2,'bg/bbk/bb',21], 
-            [2,'LIB','Small Book','Small','small',1,'sm',       1 ], 
-
+            [2,'LIB','Small Book','Small','small',1,'sm',       1 ],
         ]); 
     }
 

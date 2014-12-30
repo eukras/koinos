@@ -15,8 +15,7 @@ use Koinos\Service\ReferenceManager;
 
 /*
  * @see ReferenceManagerTest for generic functional tests. This tests larger,
- * selective cases using the NT/LXX library data. 
- * 
+ * selective cases using the NT/LXX library data.
  */
 class LibraryBooksTest extends \PHPUnit_Framework_TestCase
 {
