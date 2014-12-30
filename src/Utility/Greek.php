@@ -9,7 +9,7 @@
  * file that was distributed with this source code.
  */
 
-namespace Koinos\Bundle\KoinosBundle\Utility; 
+namespace Koinos\Utility; 
 
 /**
  * Greek

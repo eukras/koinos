@@ -9,7 +9,7 @@
  * file that was distributed with this source code.
  */
 
-namespace Koinos\Bundle\KoinosBundle\Utility; 
+namespace Koinos\Utility; 
 
 /**
  * Reference 
@@ -17,7 +17,7 @@ namespace Koinos\Bundle\KoinosBundle\Utility;
  * A DB-friendly list of verse ranges
  *
  * In the Koinos Bundle, References are usually constructed and formatted by
- * KoinosBundle\Service\ReferenceManager. 
+ * Koinos\Service\ReferenceManager. 
  *
  * ---------
  * Use Cases 

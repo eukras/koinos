@@ -9,9 +9,9 @@
  * file that was distributed with this source code.
  */
 
-namespace Koinos\Bundle\KoinosBundle\Service; 
+namespace Koinos\Service; 
 
-use Koinos\Bundle\KoinosBundle\Utility\Reference; 
+use Koinos\Utility\Reference; 
 
 /**
  * Manage reference objects for a corpus of texts. 
