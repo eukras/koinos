@@ -20,7 +20,7 @@ In `composer.json`:
 
 ```bash
 "require": {
-    "eukras/koinos": "~1.0"
+    "eukras/koinos": "~1.1"
 }
 ```
 
