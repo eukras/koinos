@@ -604,8 +604,8 @@ class Reference
     }
 
     /**
-     * Return an SQL clause selecting records whose ranges fall within this
-     * range, i.e. between two references. 
+     * Return an SQL clause selecting records whose ranges overlap the
+     * ranges in this reference. 
      * 
      * @param string $col1 SQL column name
      * @param string $col2 SQL column name
@@ -617,7 +617,7 @@ class Reference
         $clauses = array();
         foreach ($this->ranges as $range) {
             list($start, $end) = $range;
-            $clauses[] = "$col1 >= $start AND $col2 <= $end";
+            $clauses[] = "$col2 >= $start AND $col1 <= $end";
         }
         return '(' . join(') OR (', $clauses) . ')';
     }
