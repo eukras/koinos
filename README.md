@@ -49,8 +49,11 @@ single-chapter books like Philemon are identified by verse only, so have a
 reference depth of 1.  
 
 ```csv
+...
 107,NT,1 Corinthians,1 Cor,1cor,2,1co,16
+...
 118,NT,Philemon,Phm,phm,1,phl/philem,1
+...
 ```
 
 ## Service\ReferenceManager and Utility\Reference
@@ -113,7 +116,7 @@ $ref1->contains($ref2);     //  true
 ```
 
 All this together allows HTML links to be generated easily, though in a
-framework you would most likely plug `$rm->getHandle($ref)` in to a route. 
+framework you would most likely plug `$rm->getHandle($ref)` into a route. 
 
 ```php
 echo $rm->getLink($matt28, $uriPrefix='/r/');
@@ -151,9 +154,9 @@ echo $ref1->getSqlClause($columnName='reference');
 
 echo $ref1->getSqlRangeClause($startColumn='rangeBegins', $endColumn='rangeEnds'); 
 
-//  (rangeBegins >= 107001016001 AND rangeEnds <= 107001016005) OR 
-//  (rangeBegins >= 107001016008 AND rangeEnds <= 107001016008) OR 
-//  (rangeBegins >= 107001016010 AND rangeEnds <= 107001016014)  
+//  (rangeEnds >= 107001016001 AND rangeBegins <= 107001016005) OR 
+//  (rangeEnds >= 107001016008 AND rangeBegins <= 107001016008) OR 
+//  (rangeEnds >= 107001016010 AND rangeBegins <= 107001016014)  
 ```
 
 The only gotcha is that, in PHP, these numbers must be treated as a strings, or
