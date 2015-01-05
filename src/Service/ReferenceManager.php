@@ -677,7 +677,7 @@ class ReferenceManager
                             list($c2, $v2) = $cv2Parts; 
                             $quadrupleRanges[] = [
                                 [$b, 1, (int)$c1, (int)$v1], 
-                                [$b, 2, (int)$c2, (int)$v2], 
+                                [$b, 1, (int)$c2, (int)$v2], 
                                 ]; 
                             $lastReferenceIncludedVerses = true; 
                         } else { 
@@ -1219,8 +1219,8 @@ class ReferenceManager
     /**
      * Generalized link formatting function, used by getLink, etc.
      *
-     * Because getHandle, getTitle and getLink (in Reference and ReferenceList)
-     * share common formatting operations, they are abstracted into formatReference. 
+     * Because getHandle, getTitle and getLink share common formatting
+     * operations, they are abstracted into formatReference. 
      *
      * @todo Accommodate 3-tier referencing for classical texts. 
      *
@@ -1337,20 +1337,19 @@ class ReferenceManager
                     
                     //  $b1 == $b2  
 
-                    if ($lastBook == null) {
-                        $book = $this->formatBookName($b1, $labelType);
+                    $book = $this->formatBookName($b1, $labelType);
+                    if ($c1 == 1 && $c2 == 999) { 
+                        $result = $book;  //  Whole book. 
+                    } else { 
+
                         $rangeNumbers = $this->formatRangeNumbers(
                             $b1, $c1, $v1, $c2, $v2, $delimiter
-                            );
-                        if ($rangeNumbers == "") { 
-                            $result = $book;  //  Whole book. 
-                        } else { 
+                        );
+                        if ($lastBook != $b1) {
                             $result = $book . $spacer . $rangeNumbers; 
+                        } else { 
+                            $result = $rangeNumbers; 
                         }
-                    } else {
-                        $result = $this->formatRangeNumbers(
-                            $b1, $c1, $v1, $c2, $v2, $delimiter
-                            );
                     }
 
                     $lastBook = $b1; // still! -- ambiguous
