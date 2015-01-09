@@ -672,7 +672,7 @@ class ReferenceManager
                         $numCv1Parts = count($cv1Parts); 
                         $cv2Parts = explode('.', $cv2); 
                         $numCv2Parts = count($cv2Parts); 
-                        if ($numCv1Parts == 2 and $numCv2Parts == 2) { 
+                        if ($numCv1Parts == 2 && $numCv2Parts == 2) { 
                             list($c1, $v1) = $cv1Parts;
                             list($c2, $v2) = $cv2Parts; 
                             $quadrupleRanges[] = [
@@ -1194,24 +1194,30 @@ class ReferenceManager
         if ($depth == 1) { 
             if ($v1 == $v2) { 
                 return "$v1";
-            } elseif ($v1 == 1 and $v2 == 999) { 
+            } elseif ($v1 == 1 && $v2 == 999) { 
                 return "";  //  <-- Whole chapter 
             } else { 
                 return "$v1-$v2";
             }
-        } elseif ($c1 == $c2) { 
-            if ($v1 == $v2) { 
-                return "$c1$delimiter$v1";
-            } elseif ($v1 == 1 and $v2 == 999) { 
-                return "$c1";  //  <-- Whole chapter 
-            } else { 
-                return "$c1$delimiter$v1-$v2";
-            }
         } else { 
-            if ($v1 == 1 and $v2 == 999) { 
-                return "$c1-$c2";
+            if ($c1 == $c2) { 
+                if ($v1 == $v2) { 
+                    return "$c1$delimiter$v1";
+                } elseif ($v1 == 1 && $v2 == 999) { 
+                    return "$c1";  //  <-- Whole chapter 
+                } else { 
+                    return "$c1$delimiter$v1-$v2";
+                }
             } else { 
-                return "$c1$delimiter$v1-$c2$delimiter$v2";
+                if ($v1 == 1 && $v2 == 999) { 
+                    if ($c1 == 1 && $c2 == 999) { 
+                        return "";  //  <-- Whole book 
+                    } else { 
+                        return "$c1-$c2";
+                    }
+                } else { 
+                    return "$c1$delimiter$v1-$c2$delimiter$v2";
+                }
             }
         }
     }
@@ -1337,22 +1343,36 @@ class ReferenceManager
                     
                     //  $b1 == $b2  
 
+                    $depth = $this->getDepth($b1); 
                     $book = $this->formatBookName($b1, $labelType);
-                    if ($c1 == 1 && $c2 == 999) { 
-                        $result = $book;  //  Whole book. 
-                    } else { 
 
+                    $prefix = ($lastBook != $b1) ? "$book$spacer" : ""; 
+
+                    if ($depth == 1) { 
+                        if ($v1 == 1 && $v2 == 999) { 
+                            $result = $book;  //  Whole book. 
+                        } else { 
+                            if ($v1 == $v2) {
+                                $result = "$prefix$v1";
+                            } else { 
+                                $result = "$prefix$v1-$v2"; 
+                            }
+                        }
+                    } elseif ($depth == 2) { 
                         $rangeNumbers = $this->formatRangeNumbers(
                             $b1, $c1, $v1, $c2, $v2, $delimiter
                         );
-                        if ($lastBook != $b1) {
-                            $result = $book . $spacer . $rangeNumbers; 
+                        if (empty($rangeNumbers)) { 
+                            $result = $book;  //  Whole book; should only occur in first occurence. 
                         } else { 
-                            $result = $rangeNumbers; 
+                            $result = $prefix . $rangeNumbers; 
                         }
+                    } else { 
+                        throw new \Exception("Invalid book depth: $depth.");
                     }
 
-                    $lastBook = $b1; // still! -- ambiguous
+
+                    $lastBook = $b1; 
                 }
 
             } else { 
@@ -1362,13 +1382,11 @@ class ReferenceManager
 
                 list($start, $end) = reset($group); 
                 list($b1, $s1, $c1, $v1) = $r->indexToQuadruple($start);
-                if ($lastBook == null) { 
-                    $book = $this->formatBookName($b1, $labelType);
-                    $result = $book . $spacer .
-                        $this->formatSingleChapterVerseRanges($group, $delimiter); 
-                } else {  
-                    $result = $this->formatSingleChapterVerseRanges($group, $delimiter); 
-                }
+                $book = $this->formatBookName($b1, $labelType); 
+
+                $prefix = ($lastBook != $b1) ? "$book$spacer" : ""; 
+                $rangeNumbers = $this->formatSingleChapterVerseRanges($group, $delimiter); 
+                $result = $prefix . $rangeNumbers; 
 
                 $lastBook = $b1; 
                 

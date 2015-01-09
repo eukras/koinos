@@ -80,4 +80,15 @@ class LibraryBooksTest extends \PHPUnit_Framework_TestCase
         ];
         $this->forwardMapping($tests); 
     }
+
+    public function testMultiBookRanges()
+    {
+        $tests = [ 
+            'rom' => "Romans",  // <-- not Romans 1-999 (issue #11)
+            'rom-gal' => 'Romans-Galatians',  
+            'rom 1; 1cor 13' => 'Romans 1;1 Corinthians 13',  //  <-- Not Rom 1;13 (issue #11)
+        ];
+        $this->forwardMapping($tests); 
+    }
+
 }
