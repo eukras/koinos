@@ -13,47 +13,48 @@
 213,LXX,4 Regnorum,4 Regn,4regn,2,2kings/2ki/4reg,25
 214,LXX,1 Paralipomenon,1 Para,1para,2,1chronicles/1chr,29
 215,LXX,2 Paralipomenon,2 Para,2para,2,2chronicles/2chr,36
-216,LXX,1 Esdras,1 Esdr,1esdr,2,esdr/esdras,9
-217,LXX,2 Esdras,2 Esdr,2esdr,2,ezra/nehemiah,23
+216,LXX,1 Esdras,1 Esdr,1esdr,2,1esd,9
+217,LXX,2 Esdras,2 Esdr,2esdr,2,2esd,23
 218,LXX,Esther,Esth,esth,2,es,10
-219,LXX,Iudith,Idt,idt,2,judith,16
-220,LXX,Tobit (BA),Tob,tob,2,tobit,14
-221,LXX,Tobit (S),Tobs,tobs,2,,14
-222,LXX,1 Machabaeorum,1 Macc,1mac,2,1macc,14
-223,LXX,2 Machabaeorum,2 Macc,2mac,2,2macc,15
-224,LXX,3 Machabaeorum,3 Macc,3mac,2,3macc,7
-225,LXX,4 Machabaeorum,4 Macc,4mac,2,4macc,18
-226,LXX,Psalmi,Ps,ps,2,psalm/psalms,151
-227,LXX,Odae,Odae,odae,2,odes,14
-228,LXX,Prouerbia,Prou,prou,2,proverbs/prov,31
-229,LXX,Ecclesiastes,Eccl,eccl,2,,12
-230,LXX,Canticum,Cant,cant,2,songofsolomon/song,8
-231,LXX,Iob,Iob,iob,2,job,42
-232,LXX,Wisdom,Wisdom,wis,2,,19
-233,LXX,Siracides (Prologue),Prol,prol,2,prologue/prolog,19
-234,LXX,Siracides,Sir,sir,2,sirach,51
-235,LXX,Psalmi Salomonis,Ps Sal,pssal,2,psalmsofsolomon/pssol/sol,18
-236,LXX,Osee,Osee,osee,2,hosea/hos,14
-237,LXX,Amos,Amos,amos,2,am,9
-238,LXX,Michaeas,Mich,mich,2,micah/mic,7
-239,LXX,Ioel,Ioel,ioel,2,joel,4
-240,LXX,Abdias,Abd,abd,1,obadias/obad/ob,1
-241,LXX,Ionas,Ion,ion,2,jonah/jon,4
-242,LXX,Nahum,Nah,nahum,2,nah,3
-243,LXX,Habacuc,Hab,hab,2,habakkuk,3
-244,LXX,Sophonias,Soph,soph,2,zephaniah/zeph,3
-245,LXX,Aggaeus,Agg,agg,2,haggai/hagg/hag,2
-246,LXX,Zacharias,Zach,zach,2,zechariah/zech,14
-247,LXX,Malachias,Mal,mal,2,malachi,3
-248,LXX,Isaias,Isa,isa,2,isaiah/is,66
-249,LXX,Ieremias,Ier,ier,2,jeremiah/jer,52
-250,LXX,Baruch,Bar,bar,2,,5
-251,LXX,Threni seu Lamentationes,Lam,lam,2,lamentations/threni/thr,5
-252,LXX,Epistula Ieremias,EpIer,epier,1,,1
-253,LXX,Ezechiel,Ez,ez,2,ezekiel/ezek/ezech,48
-254,LXX,Susannah,Sus,sus,1,,1
-255,LXX,Susannah (Theodotion),SusTh,susth,1,,1
-256,LXX,Daniel,Dan,dan,2,,12
-257,LXX,Daniel (Theodotion),DanTh,danth,2,,12
-258,LXX,Bel and the Dragon,Bel,bel,1,,1
-259,LXX,Bel and the Dragon (Theodotion),BelTh,belth,1,,1
+219,LXX,Nehemiah,Neh,neh,2,ne,13
+220,LXX,Iudith,Idt,idt,2,judith,16
+221,LXX,Tobit (BA),Tob,tob,2,tobit,14
+222,LXX,Tobit (S),Tobs,tobs,2,,14
+223,LXX,1 Machabaeorum,1 Macc,1mac,2,1macc,14
+224,LXX,2 Machabaeorum,2 Macc,2mac,2,2macc,15
+225,LXX,3 Machabaeorum,3 Macc,3mac,2,3macc,7
+226,LXX,4 Machabaeorum,4 Macc,4mac,2,4macc,18
+227,LXX,Psalmi,Ps,ps,2,psalm/psalms,151
+228,LXX,Odae,Odae,odae,2,odes,14
+229,LXX,Prouerbia,Prou,prou,2,proverbs/prov,31
+230,LXX,Ecclesiastes,Eccl,eccl,2,,12
+231,LXX,Canticum,Cant,cant,2,songofsolomon/song,8
+232,LXX,Iob,Iob,iob,2,job,42
+233,LXX,Wisdom,Wisdom,wis,2,,19
+234,LXX,Siracides (Prologue),Prol,prol,2,prologue/prolog,19
+235,LXX,Siracides,Sir,sir,2,sirach,51
+236,LXX,Psalmi Salomonis,Ps Sal,pssal,2,psalmsofsolomon/pssol/sol,18
+237,LXX,Osee,Osee,osee,2,hosea/hos,14
+238,LXX,Amos,Amos,amos,2,am,9
+239,LXX,Michaeas,Mich,mich,2,micah/mic,7
+240,LXX,Ioel,Ioel,ioel,2,joel,4
+241,LXX,Abdias,Abd,abd,1,obadias/obad/ob,1
+242,LXX,Ionas,Ion,ion,2,jonah/jon,4
+243,LXX,Nahum,Nah,nahum,2,nah,3
+244,LXX,Habacuc,Hab,hab,2,habakkuk,3
+245,LXX,Sophonias,Soph,soph,2,zephaniah/zeph,3
+246,LXX,Aggaeus,Agg,agg,2,haggai/hagg/hag,2
+247,LXX,Zacharias,Zach,zach,2,zechariah/zech,14
+248,LXX,Malachias,Mal,mal,2,malachi,3
+249,LXX,Isaias,Isa,isa,2,isaiah/is,66
+250,LXX,Ieremias,Ier,ier,2,jeremiah/jer,52
+251,LXX,Baruch,Bar,bar,2,,5
+252,LXX,Threni seu Lamentationes,Lam,lam,2,lamentations/threni/thr,5
+253,LXX,Epistula Ieremias,EpIer,epier,1,,1
+254,LXX,Ezechiel,Ez,ez,2,ezekiel/ezek/ezech,48
+255,LXX,Susannah,Sus,sus,1,,1
+256,LXX,Susannah (Theodotion),SusTh,susth,1,,1
+257,LXX,Daniel,Dan,dan,2,,12
+258,LXX,Daniel (Theodotion),DanTh,danth,2,,12
+259,LXX,Bel and the Dragon,Bel,bel,1,,1
+260,LXX,Bel and the Dragon (Theodotion),BelTh,belth,1,,1
