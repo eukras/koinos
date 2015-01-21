@@ -20,7 +20,7 @@ use Koinos\Utility\Reference;
  *
  *  1)  Load corpus data from a library file. 
  *  2)  Return collections of books for that corpus. 
- *  3)  Use the corpus's dataset to:
+ *  3)  Use the corpus's data set to:
  *      a)  Create DB-friendly reference objects from human- and HTML-friendly
  *          formats. 
  *      b)  Format reference objects into human- and HTML-friendly formats. 
@@ -127,7 +127,7 @@ class ReferenceManager
                 $path = __DIR__ . "/../Resources/library/$name"; 
                 if (is_dir($path)) { 
                     $this->loadCsvFile("$path/books.csv"); 
-                } else { 
+                } else {
                     throw new \Exception("Library directory not found for '$name'.");
                 }
             }
@@ -173,7 +173,6 @@ class ReferenceManager
             $this->loadData($data); 
             fclose($fp); 
         }
-
     }
 
     /**
@@ -226,8 +225,7 @@ class ReferenceManager
             $this->shortName[$id]       = $bookShortName; 
             $this->depth[$id]           = (int)$bookDepth; 
             $this->chapters[$id]        = (int)$bookChapters; 
-            $this->abbreviation[$id]    = $bookAbbreviation; 
-
+            $this->abbreviation[$id]    = $bookAbbreviation;
         }
     }
 
@@ -236,24 +234,26 @@ class ReferenceManager
      * -----------------------------------------------------
      */
 
-    public function getId($name, $noExceptions=false)
+    public function getId($name, $noExceptions = false)
     {
         $safeName = trim($name);
         if (isset($this->id[$safeName])) {
             return (int)$this->id[$safeName];
-        } elseif (($index = array_search($safeName, $this->nameLowercase)) !== false ) {
-            return $index;
-        } else {
-            if (isset($this->aliasing[$safeName])) {
-                return (int)$this->aliasing[$safeName];
-            } else {
-                if ($noExceptions) {
-                    return false;
-                } else {
-                    throw new \Exception("Book ID not found for '$safeName'.");
-                }
-            }
         }
+
+        if (($index = array_search($safeName, $this->nameLowercase)) !== false ) {
+            return $index;
+        }
+
+        if (isset($this->aliasing[$safeName])) {
+            return (int) $this->aliasing[$safeName];
+        }
+
+        if ($noExceptions) {
+            return false;
+        }
+
+        throw new \Exception("Book ID not found for '$safeName'.");
     }
 
     public function getAlias($name)
@@ -404,10 +404,11 @@ class ReferenceManager
                     'handle' => $this->getHandle($r), 
                     'title' => $this->getShortName($bookId), 
                     'weight' => min(ceil($this->getChapters($bookId) / $divider), $steps), 
-                    ]; 
+                ];
             }
             $tagCloud[$libraryName] = $libraryTagCloud; 
         }
+
         return $tagCloud; 
     }
 
@@ -419,7 +420,8 @@ class ReferenceManager
     public function createReferenceFromRanges($ranges)
     {
         $reference = new Reference;
-        $reference->addRanges($ranges); 
+        $reference->addRanges($ranges);
+
         return $reference;
     }
 
@@ -436,6 +438,7 @@ class ReferenceManager
                 $r->quadrupleToIndex($end),  
             ]; 
         }
+
         return $this->createReferenceFromRanges($ranges); 
     }
 
@@ -449,7 +452,8 @@ class ReferenceManager
     public function createReferenceFromBookAndChapter($b, $c)
     {
         $reference = new Reference;
-        $reference->addBookAndChapter($b, $c); 
+        $reference->addBookAndChapter($b, $c);
+
         return $reference;
     }
 
@@ -464,7 +468,8 @@ class ReferenceManager
     public function createReferenceFromBookChapterAndVerse($b, $c, $v)
     {
         $reference = new Reference;
-        $reference->addBookChapterAndVerse($b, $c, $v); 
+        $reference->addBookChapterAndVerse($b, $c, $v);
+
         return $reference;
     }
 
@@ -477,11 +482,12 @@ class ReferenceManager
     public function getChapterReference(Reference $reference)
     {
         if ($quadruple = $reference->getFirstQuadruple()) { 
-            list($b, $s, $c, $v) = $quadruple; 
+            list($b, $s, $c, $v) = $quadruple;
+
             return $this->createReferenceFromBookAndChapter($b, $c);  
-        } else { 
-            return null; 
         }
+
+        return null;
     }
 
     /**
@@ -504,16 +510,17 @@ class ReferenceManager
                     $maxBook = max($books);
                     $maxChapter = $this->getChapters($maxBook);
                     return $this->createReferenceFromBookAndChapter($maxBook, $maxChapter);  
-                } else {
-                    $maxChapter = $this->getChapters($b - 1);
-                    return $this->createReferenceFromBookAndChapter($b - 1, $maxChapter);  
                 }
-            } else { 
-                return $this->createReferenceFromBookAndChapter($b, $c - 1);  
+
+                $maxChapter = $this->getChapters($b - 1);
+
+                return $this->createReferenceFromBookAndChapter($b - 1, $maxChapter);
             }
-        } else { 
-            return null; 
+
+            return $this->createReferenceFromBookAndChapter($b, $c - 1);
         }
+
+        return null;
     }
 
     /**
@@ -536,15 +543,15 @@ class ReferenceManager
             if ($c == $maxChapter) {
                 if ($b == $maxBook) {
                     return $this->createReferenceFromBookAndChapter($minBook, 1);  
-                } else {
-                    return $this->createReferenceFromBookAndChapter($b + 1, 1);  
                 }
-            } else { 
-                return $this->createReferenceFromBookAndChapter($b, $c + 1);  
+
+                return $this->createReferenceFromBookAndChapter($b + 1, 1);
             }
-        } else { 
-            return null; 
+
+            return $this->createReferenceFromBookAndChapter($b, $c + 1);
         }
+
+        return null;
     }
 
     /*
@@ -610,30 +617,33 @@ class ReferenceManager
         foreach ($filters as $f) { 
             $query = $f($query); 
         }
+
         return $query; 
     }
 
     /**
-     * Match a book ID to a book name. 
+     * Match a book ID to a book name.
      *
      * @see self::queryToQuadrupleRanges()
      *
-     * @throws User-friendly Exception 
+     * @throws User-friendly Exception
      *
-     * @idea Include a spelling suggestion in the message? 
-     * 
-     * @param mixed $bookName 
+     * @idea Include a spelling suggestion in the message?
+     *
+     * @param mixed $bookName
      * @return string
      */
     public function matchBookName($bookName) 
     {
         if (isset($this->id[$bookName])) { 
             return $this->id[$bookName]; 
-        } elseif (isset($this->alias[$bookName])) { 
-            return $this->alias[$bookName]; 
-        } else { 
-            throw new \Exception("Book not recognized: $bookName"); 
         }
+
+        if (isset($this->alias[$bookName])) {
+            return $this->alias[$bookName]; 
+        }
+
+        throw new \Exception("Book not recognized: $bookName");
     }
 
     /**
@@ -802,18 +812,12 @@ class ReferenceManager
                             [$b, 1, $c,   1], 
                             [$b, 1, $c, 999], 
                             ]; 
-                        $lastReferenceIncludedVerses = false; 
-
-                    } else { 
-
-                        throw new \Exception("Bad reference depth $depth for $name"); 
-
+                        $lastReferenceIncludedVerses = false;
+                    } else {
+                        throw new \Exception("Bad reference depth $depth for $name");
                     }
-
                 }
-
-            } else { 
-
+            } else {
                 throw new \Exception("Malformed verse numbers: $part"); 
             }
         }
@@ -825,28 +829,29 @@ class ReferenceManager
      * A range number string contains only numbers and punctuation.
      *
      * @param strign $str
-     * @return void
+     * @return bool
      */
     public function isValidRangeNumberString($str)
     {
         $rangeStr = preg_replace('/[^0-9\-.,]/', '', $str);
+
         return $str == $rangeStr;
     }
 
     /**
-     * Exceptino wrapper for isValidRangeNumberString 
-     * 
-     * @param string $str 
-     * @throw Exception 
-     * @return void
+     * Exception wrapper for isValidRangeNumberString
+     *
+     * @param string $str
+     * @throws \Exception
+     * @return mixed
      */
     public function requireValidRangeNumberString($str)
     {
         if ($this->isValidRangeNumberString($str)) { 
-            //  Do nothing. 
-        } else { 
-            throw new \Exception("Malformed range numbers: $str"); 
+            return;
         }
+
+        throw new \Exception("Malformed range numbers: $str");
     }
 
     /**
@@ -897,7 +902,7 @@ class ReferenceManager
             $numQueryParts = count($queryParts); 
             if ($numQueryParts == 1) { 
 
-                if ($this->isValidRangeNumberString($query)) { 
+                if ($this->isValidRangeNumberString($query)) {
 
                     //  RangeNumbers ($lastBook cannot be null)
 
@@ -909,9 +914,9 @@ class ReferenceManager
                     } else { 
                         if ($throwExceptions) { 
                             throw new \Exception("Missing book for '$query'"); 
-                        } else { 
-                            return null; 
                         }
+
+                        return null;
                     }
                 } else { 
 
@@ -939,9 +944,9 @@ class ReferenceManager
                     } else { 
                         if ($throwExceptions) { 
                             throw new \Exception("Could not understand: '$query'"); 
-                        } else { 
-                            return null; 
                         }
+
+                        return null;
                     }
                 }
 
@@ -960,39 +965,39 @@ class ReferenceManager
             } else { 
                 if ($throwExceptions) { 
                     throw new \Exception("Could not understand: '$query'"); 
-                } else { 
-                    return null; 
                 }
-            }
 
+                return null;
+            }
         }
 
         if ($lastBook == null) { 
             if ($throwExceptions) { 
                 throw new \Exception("No book given in reference: '$unfilteredQuery'"); 
-            } else { 
-                return null; 
             }
+
+            return null;
         }
 
         return $quadrupleRanges; 
     }
 
     /**
-     * Construct a reference from a URL or search query. 
+     * Construct a reference from a URL or search query.
      *
      * Only to be used for very short or incidental references like the
-     * single-verse example in the home page. 
-     * 
-     * @param mixed $query 
-     * @param mixed $previousReference 
-     * @return void
+     * single-verse example in the home page.
+     *
+     * @param mixed $query
+     * @param bool $throwExceptions
+     * @return Reference
+     * @throws \Exception
      */
-    public function createReferenceFromQuery($query, $throwExceptions=false)
+    public function createReferenceFromQuery($query, $throwExceptions = false)
     {
-        $qr = $this->queryToQuadrupleRanges($query, $throwExceptions); 
-        $r = $this->createReferenceFromQuadrupleRanges($qr);  
-        return $r; 
+        $qr = $this->queryToQuadrupleRanges($query, $throwExceptions);
+
+        return $this->createReferenceFromQuadrupleRanges($qr);
     }
 
     /* 
@@ -1003,9 +1008,11 @@ class ReferenceManager
     /**
      * Return a URL-friendly reference string
      *
-     * (That's what a "handle" is.) 
-     * 
+     * (That's what a "handle" is.)
+     *
+     * @param Reference $reference
      * @return string URL-friendly reference
+     * @throws \Exception
      */
     public function getHandle(Reference $reference) 
     {
@@ -1020,9 +1027,11 @@ class ReferenceManager
     /**
      * Return a human-friendly reference string
      *
-     * (That's what a "title" is.) 
-     * 
+     * (That's what a "title" is.)
+     *
+     * @param Reference $reference
      * @return string Human-friendly reference string
+     * @throws \Exception
      */
     public function getTitle(Reference $reference) 
     {
@@ -1035,9 +1044,11 @@ class ReferenceManager
     }
 
     /**
-     * Return a human-friendly reference string, but without the book name. 
+     * Return a human-friendly reference string, but without the book name.
      *
+     * @param Reference $reference
      * @return string Human-friendly reference string
+     * @throws \Exception
      */
     public function getShortTitle(Reference $reference)
     {
@@ -1046,7 +1057,7 @@ class ReferenceManager
             $format     = ReferenceManager::SHORT_TITLE, 
             $space      = ' ',
             $delimiter  = ':'
-        ); 
+        );
     }
 
     /**
@@ -1061,7 +1072,8 @@ class ReferenceManager
             . $this->getHandle($reference)
             . "\">"
             . $this->getTitle($reference)
-            . "</a>";
+            . "</a>"
+        ;
     }
 
     /**
@@ -1076,29 +1088,35 @@ class ReferenceManager
             . $this->getHandle($reference)
             . "\">"
             . $this->getShortTitle($reference)
-            . "</a>";
+            . "</a>"
+        ;
     }
 
     /**
-     * Find the right book name for a given labelType. 
+     * Find the right book name for a given labelType.
      *
      * @see formatReference
-     * 
-     * @param int $bookId 
-     * @param int $labelType 
-     * @return void
+     *
+     * @param int $bookId
+     * @param int $labelType
+     * @return mixed
+     * @throws \Exception
      */
     public function formatBookName($bookId, $labelType)
     {
         if ($labelType == self::HANDLE) { 
             return $this->getAbbreviation($bookId); 
-        } else if ($labelType == self::TITLE) { 
-            return $this->getName($bookId); 
-        } else if ($labelType == self::SHORT_TITLE) { 
-            return $this->getShortName($bookId); 
-        } else { 
-            throw new \Exception("Invalid label type: $labelType"); 
         }
+
+        if ($labelType == self::TITLE) {
+            return $this->getName($bookId); 
+        }
+
+        if ($labelType == self::SHORT_TITLE) {
+            return $this->getShortName($bookId); 
+        }
+
+        throw new \Exception("Invalid label type: $labelType");
     }
 
     /**
@@ -1114,17 +1132,21 @@ class ReferenceManager
      * @return string
      */
     public function formatVerseNumber($b, $s, $c, $v, $delimiter)
-    { 
-        $depth = $this->getDepth($b); 
-        if ($depth == 1) { 
-            return "$v"; 
-        } else if ($depth == 2) { 
-            return "$c$delimiter$v"; 
-        //  } else if ($depth == 3) {  //  Add this when sections are supported. 
-            //  return "$s$delimiter$c$delimiter$v"; 
-        } else { 
-            throw new \Exception("Invalid referencing depth: $depth"); 
+    {
+        $depth = $this->getDepth($b);
+        if ($depth == 1) {
+            return "$v";
         }
+
+        if ($depth == 2) {
+            return "$c$delimiter$v";
+        }
+
+        //  if ($depth == 3) {  //  Add this when sections are supported.
+        //      return "$s$delimiter$c$delimiter$v";
+        //  }
+
+        throw new \Exception("Invalid referencing depth: $depth");
     }
 
     /**
@@ -1194,32 +1216,40 @@ class ReferenceManager
         if ($depth == 1) { 
             if ($v1 == $v2) { 
                 return "$v1";
-            } elseif ($v1 == 1 && $v2 == 999) { 
+            }
+
+            if ($v1 == 1 && $v2 == 999) {
                 return "";  //  <-- Whole chapter 
-            } else { 
-                return "$v1-$v2";
             }
         } else { 
             if ($c1 == $c2) { 
                 if ($v1 == $v2) { 
                     return "$c1$delimiter$v1";
-                } elseif ($v1 == 1 && $v2 == 999) { 
+                }
+
+                if ($v1 == 1 && $v2 == 999) {
                     return "$c1";  //  <-- Whole chapter 
-                } else { 
-                    return "$c1$delimiter$v1-$v2";
                 }
-            } else { 
-                if ($v1 == 1 && $v2 == 999) { 
-                    if ($c1 == 1 && $c2 == 999) { 
-                        return "";  //  <-- Whole book 
-                    } else { 
-                        return "$c1-$c2";
-                    }
-                } else { 
-                    return "$c1$delimiter$v1-$c2$delimiter$v2";
-                }
+
+                return "$c1$delimiter$v1-$v2";
             }
+
+            if ($v1 == 1 && $v2 == 999) {
+                if ($c1 == 1 && $c2 == 999) {
+                    return "";  //  <-- Whole book
+                }
+
+                return "$c1-$c2";
+            }
+
+            return "$c1$delimiter$v1-$c2$delimiter$v2";
         }
+
+        if ($v1 == 1 and $v2 == 999) {
+            return "$c1-$c2";
+        }
+
+        return "$c1$delimiter$v1-$c2$delimiter$v2";
     }
 
     /**
@@ -1416,9 +1446,9 @@ class ReferenceManager
                 $handles[] = $this->getHandle($r); 
             }
             return array_chunk($handles, $width); 
-        } else { 
-            return []; 
         }
+
+        return [];
     }
 
     /*
