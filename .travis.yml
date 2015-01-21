@@ -1,0 +1,16 @@
+language: php
+
+php: [5.4, 5.5, hhvm-nightly]
+
+matrix:
+    fast_finish: true
+    allow_failures:
+        - php: hhvm-nightly
+
+before_install:
+    - curl -sS http://bldr.io/installer | php
+    - php ./bldr.phar install
+
+script:
+    - php ./bldr.phar run travis
+    - sh -c 'if [ "$TRAVIS_PHP_VERSION" != "hhvm-nightly" ]; then php ./bldr.phar run secure; fi;'
