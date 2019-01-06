@@ -1,4 +1,5 @@
-<img src="http://hexap.la/images/logo-koinos-400w.jpg" alt="Koinos Logo"  width="400px"/>
+
+![Koinos logo](src/Resources/public/images/koinos-logo-400w.jpg)
 
 # koinos
 
